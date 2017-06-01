@@ -44,5 +44,5 @@ app.get('*', function(req, res){
     })
 });
 // 监听8088端口
-app.listen(10000);
+app.listen(18888);
 console.log('success listen…………');
