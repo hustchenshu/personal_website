@@ -4,8 +4,10 @@ var path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    // index: path.resolve(__dirname, '../dist/index.html'),
+    // assetsRoot: path.resolve(__dirname, '../dist'),
+    index: path.resolve(__dirname, '../../myserver/public/pages/index.html'),
+    assetsRoot: path.resolve(__dirname, '../../myserver/public/pages'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: true,
@@ -29,14 +31,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/blog': {
-        target: 'http://127.0.0.1:18888',
+        target: 'http://127.0.0.1:80',
         changeOrigin: true,
         pathRewrite: {
           '^/api/blog': '/blog'
         }
       },
       '/api/demo': {
-        target: 'http://127.0.0.1:18888',
+        target: 'http://127.0.0.1:80',
         changeOrigin: true,
         pathRewrite: {
           '^/api/demo': '/demo'
