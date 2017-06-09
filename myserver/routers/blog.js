@@ -6,7 +6,7 @@ var dateFormat = require('dateformat');
 // var jwt = require('jsonwebtoken');
 var jwtToken = require('../jwtauth.js')('hustchenshu')
 const manager = require('../manager.js')
-const uuidV1 = require('uuid/v1');
+var mongoose = require('mongoose');
 
 var multer  = require('multer')
 // var upload = multer({ dest: 'upload/' })
@@ -54,7 +54,7 @@ router.get('/getBlogs/:type',(req,res) => {
 
   const limit = req.query.limit === undefined? 100 : 3 ;
     // console.log(req.params)
-  Blogs.find(condition,'title date').sort([['date', -1]]).limit(limit).exec((err,doc)=>{
+  Blogs.find(condition,'title type date').populate('typeid').sort([['date', -1]]).limit(limit).exec((err,doc)=>{
     if(err){
       console.log(err)
     }else{
@@ -62,74 +62,27 @@ router.get('/getBlogs/:type',(req,res) => {
       res.json(doc)
     }
   });
-  // Blogs.find(condition,'title date',function(err,doc){
-  //   if(err){
-  //     console.log(err)
-  //   }else{
-  //     console.log(doc)
-  //     res.json(doc)
-  //   }
-  // });
-    // fs.readdir(path.resolve(__dirname, '../public/upload/blog'),function(err,files){
-    //   if(err){
-    //     console.log(err);
-    //     res.send(err);
-    //   }else{
-    //     let re = []
-    //     const type = req.params.type;
-    //     files.forEach(function(file){
-    //       let t = file.split('~')[0]
-    //       let title = file.split('~')[1].split('@')[0]
-    //       let date = file.split('@')[0]
-    //       let blog = {
-    //         filename:file,
-    //       }
-    //       if(type==='All'||type===t){
-    //         re.push(blog)
-    //       }
-    //     })
-    //     res.status(200).json(re)
-    //   }
-      
-    // })
 });
 
 router.get('/getBlogContent/:id',(req,res) => {
-  // let filename = req.params.name
-  // console.log(filename)
-  // fs.readFile(path.resolve(__dirname, '../public/upload/blog/'+filename),'utf-8',function (err,data) {
-  //   if(err){
-  //     console.log(err)
-  //   }else{
-  //     res.send(data)
-  //   }
-  // })
   var Blogs = global.DbHandler.getModel('Blogs'); 
   // let condition = req.params.type==='all'?{}:{type:req.params.type}
-  Blogs.findById(req.params.id,'content',function(err,doc){
+  Blogs.findById(req.params.id,function(err,doc){
     if(err){
       console.log(err)
     }else{
       // console.log(doc.content)
-      res.send(doc.content)
+      res.json(doc)
     }
   });
 });
 
 
 router.post('/login',(req,res) => {
-
-  let {username, password} = req.body
-  // console.log(req.body)
-  
+  let {username, password} = req.body  
   if(manager.username === username && manager.password === password){
-        // 创建token
-    // var token = jwt.sign(manager,'hustchenshu', {
-    //     'expiresIn': '1h' // 设置过期时间
-    // });
+
     var token = jwtToken.createToken(manager,'1h')
-    // console.log(token);
-    // json格式返回token
     res.json({
         success: true,
         message: 'Enjoy your token!',
@@ -144,8 +97,6 @@ router.post('/login',(req,res) => {
 });
 
 router.post('/insert', (req, res) => {
-  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  // console.log(req.body);
   let token = req.get('x-access-token')
   if (!token) {
     res.json({
@@ -156,10 +107,20 @@ router.post('/insert', (req, res) => {
   let m = jwtToken.checkToken(manager, token)
   if(m){
     var Blogs = global.DbHandler.getModel('Blogs'); 
-    let newBlog =req.body;
-    // newBlog.id = uuidV1()
-    // console.log(newBlog)
-    Blogs.create(newBlog,function(err,doc){ 
+    let newBlog = req.body;
+    // console.log(newBlog._id)
+    // console.log(!newBlog._id)
+    // console.log(newBlog._id===undefined)
+    if(!newBlog._id){
+      newBlog._id = new mongoose.mongo.ObjectID();
+    }
+    Blogs.findByIdAndUpdate(newBlog._id,{$set:newBlog},
+      {
+        upsert:true,
+        new: true
+      },
+    //Blogs.create(newBlog,
+      function(err,doc){ 
         if (err) {
           res.json({
               success: false,
@@ -178,9 +139,46 @@ router.post('/insert', (req, res) => {
         success: false,
         message: 'token invalid'
     });
-  }
-     
+  }   
 })
+
+router.get('/del', (req, res) => {
+  let token = req.get('x-access-token')
+  if (!token||token==='null') {
+    res.json({
+        success: false,
+        message: 'no token'
+    });
+  } else {
+    let m = jwtToken.checkToken(manager, token)
+    if(m){
+      var Blogs = global.DbHandler.getModel('Blogs'); 
+      let blogid = req.query.id
+      // console.log('id:',blogid)
+      Blogs.findByIdAndRemove(blogid, function(err, doc){ 
+          if (err) {
+            res.json({
+                success: false,
+                message: err
+            });
+          } else {
+            // console.log(doc)
+            res.json({
+                success: true,
+                message: blogid
+            });
+          }
+        }
+      );    
+    }else{
+      res.json({
+          success: false,
+          message: 'token invalid'
+      });
+    }
+  }   
+})
+
 
 
 

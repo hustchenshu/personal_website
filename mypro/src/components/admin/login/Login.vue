@@ -1,14 +1,13 @@
 <template>
   <div class="login-view">
-    <form v-if="done">
-    {{tips}}
+    <form>
       <div class="field">
         <label for="username">用户名:</label>
         <input type="text" v-model="username" required>
       </div>
       <div class="field">
         <label for="password">密&nbsp;&nbsp;&nbsp;码:</label>
-        <input type="password" v-model="password" required>
+        <input type="password" v-model="password"  @keyup.enter="auth" required>
       </div>
       <div class="op">
         <input type="button" class="submit" @click='auth' value="登录">
@@ -17,9 +16,7 @@
       </div>
       
     </form>
-    <div v-else>
-      <router-link to='/'> shouye</router-link> 
-    </div>
+    <div class="tips"><h4>{{tips}}</h4></div>
   </div>
 </template>
 
@@ -28,10 +25,9 @@ export default {
   props: ['topath'],
   data () {
     return {
-      uername: '',
+      username: '',
       password: '',
-      tips: '',
-      done: true
+      tips: ''
     }
   },
   methods: {
@@ -59,10 +55,13 @@ export default {
       .then(function (response) {
         return response.json()
       }).then(function (json) {
-        // console.log('parsed json', json)
+        console.log('parsed json', json)
+        console.log(self.$route.params.op)
         if (json.success) {
           window.sessionStorage.setItem('token', json.token)
-          window.location = '#/' + self.$route.params.op
+          // window.location = '#/home'
+          console.log(self.$route)
+          window.location = '#/' + self.$route.params[0]
         } else {
           self.tips = json.message
         }

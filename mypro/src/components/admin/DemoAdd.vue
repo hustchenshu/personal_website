@@ -31,7 +31,8 @@ export default {
     if (token === null) {
       window.sessionStorage.clear()
       alert('您没有该权限，请先登录！')
-      window.location = '#/login/addDemo'
+      // window.location = '#/login/addDemo'
+      window.location = '/admin/#/login/addDemo'
     }
   },
   methods: {
@@ -67,7 +68,8 @@ export default {
           // console.log('parsed json', json)
           if (json.success) {
             alert('发布成功！')
-            window.location = '#/demo'
+            window.location = '/#/demo'
+            // window.location = '/#/blog/All'
           } else {
             window.sessionStorage.clear()
             alert('您没有该权限，请先登录！')

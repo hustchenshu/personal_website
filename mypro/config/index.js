@@ -7,6 +7,7 @@ module.exports = {
     // index: path.resolve(__dirname, '../dist/index.html'),
     // assetsRoot: path.resolve(__dirname, '../dist'),
     index: path.resolve(__dirname, '../../myserver/public/pages/index.html'),
+    admin: path.resolve(__dirname, '../../myserver/public/pages/admin.html'),
     assetsRoot: path.resolve(__dirname, '../../myserver/public/pages'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -34,14 +35,14 @@ module.exports = {
         target: 'http://127.0.0.1:80',
         changeOrigin: true,
         pathRewrite: {
-          '^/api/blog': '/blog'
+          '^/api/blog': '/api/blog'
         }
       },
       '/api/demo': {
         target: 'http://127.0.0.1:80',
         changeOrigin: true,
         pathRewrite: {
-          '^/api/demo': '/demo'
+          '^/api/demo': '/api/demo'
         }
       }
     },

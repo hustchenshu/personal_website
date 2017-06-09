@@ -2,33 +2,34 @@
   <div class="container">
     <div class="newblog">
       <div class="toobar">
-        <h1>最新博文</h1>
+        <h1 class="lastblog">最新博文</h1>
         <div class="more">
             <router-link to='/blog/All'>查看更多</router-link>
         </div>
       </div>
-      <hr>
+      <hr class="split">
       <section class="webmodal">      
         <div class="items" v-for="(blog, index) in blogs" >
-          <div class="bgbr" :style='"background:"+getbg(index)+";background-size: cover;"'></div>
+          <div class="bgbr"></div>
           <div class="item">
-            <h2><router-link :to='"/alongBlog/"+blog._id'>{{blog.title}}</router-link></h2>
+            <h2 class="blogtitle"><router-link :to='"/alongBlog/"+blog._id'>{{blog.title}}</router-link></h2>
             <div class="date">
               <p>{{formedData(blog.date)}}</p>
               <!-- <router-link :to:'"/alongBlog/"+blog.id'>chakn</router-link> -->
             </div>
+            <hr>
             <div class="readall">
-                <router-link :to='"/alongBlog/"+blog._id'>查看更多</router-link>
+                <router-link :to='"/alongBlog/"+blog._id'><img src="../../assets/readall.png" alt="阅读全文"></router-link>
             </div>
           </div>
           <div style="clear:both;"></div>
         </div>
       </section>
     </div>
-    <hr class="split">
+    <!-- <hr class="split"> -->
     <div class="newdemo">
       <div class="toobar">
-        <h1>最新Demo</h1>
+        <h1 class="lastdemo">最新Demo</h1>
         <div class="more">
             <router-link to='/demo'>查看更多</router-link>
         </div>
@@ -48,13 +49,7 @@ export default {
   data () {
     return {
       blogs: [],
-      demos: [],
-      imgs: [
-        '/static/css.jpeg',
-        '/static/html.jpg',
-        '/static/timg.jpg',
-        '/static/banner.jpg'
-      ]
+      demos: []
     }
   },
   created () {
@@ -64,11 +59,6 @@ export default {
   methods: {
     formedData (date) {
       return dateFormat(date, 'yyyy-mm-dd')
-    },
-    getbg: function (index) {
-      let cyc = index % this.imgs.length
-      // console.log(cyc)
-      return 'url(' + this.imgs[cyc] + ') center black'
     },
     fetchNewBlog: function (type) {
       // this.type = type
@@ -101,15 +91,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.lastdemo:before{
+	content: url('../../assets/demo.png')
+}
+.lastblog:before{
+	content: url('../../assets/blog.png')
+}
 hr.split{
-  height: 4px;
+  height: 3px;
   box-shadow: 2px 2px 2px rgb(88, 126, 156);
+  border-radius: 2px;
 }
 a{
   text-decoration: none;
-  color: white;
+  color: black;
 }
 h1{
+  text-indent: 40px;
   color:#302A2A;
   font: bold 32px Verdana, Geneva, sans-serif;
   font-weight: bold;
@@ -119,7 +117,8 @@ h1{
 .toobar{
   position: relative;
   h1{
-    display: inline;
+    // display: inline;
+    // text-indent: 2em;
   }
   .more{
     display: inline;
@@ -147,7 +146,6 @@ h1{
     // display: flex; 
     overflow: hidden;
     .items{
-      color:white;
       position: relative;
 
       padding: 20px 0 20px 0;
@@ -163,14 +161,15 @@ h1{
       }
       .readall{
         position: absolute;
-        bottom: 20px;
-        right: 40px;
+        bottom: 10px;
+        right: 10px;
+        font-size: 16px;
+        font-weight: bold;
       }
       @media screen and(max-width:480px) {
         .date{
-                  display: none;
+            display: none;
         }
-
       }
       width: 98%;
       margin: 0 auto;
@@ -181,10 +180,24 @@ h1{
         height: 140px;       
       }    
       .item{
+      	      // border: solid 1px;
         border-radius: 30px;
         width: 100%;
-        height: 200px;
+        height: 160px;
         position: absolute;
+        .blogtitle{
+        	a{
+        		padding-left: 25px;
+        	}
+        }
+        .blogtitle:before{
+			content: url('../../assets/BlogTitle.png')
+        }
+        .date{
+        	p:before{
+        		content: url('../../assets/blog-time.png')
+        	}
+        }
       }  
     }
     .bgbr{
@@ -204,27 +217,6 @@ h1{
     .item:hover{
       box-shadow: 0 0 18px rgba(11,1,32,3); 
     }
-    // .items:nth-child(3n)>.bgbr{
-    //   background:url('/static/css.jpeg') center black;
-
-    //   -webkit-background-size: cover;
-    //        -moz-background-size: cover;
-    //             background-size: cover;
-    // }
-    // .items:nth-child(3n-2)>.bgbr{
-    //   background:url('/static/earth.jpg') center black;
-
-    //   -webkit-background-size: cover;
-    //        -moz-background-size: cover;
-    //             background-size: cover;
-    // }
-    // .items:nth-child(3n-1)>.bgbr{
-    //   background:url('/static/music.jpg') center black;
-
-    //   -webkit-background-size: cover;
-    //        -moz-background-size: cover;
-    //             background-size: cover;
-    // }
   }
 }
 </style>

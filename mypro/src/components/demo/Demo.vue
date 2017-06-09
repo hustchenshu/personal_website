@@ -1,12 +1,21 @@
 <template>
   <div class="container">
    <div class="manage">
-      <router-link to="/addDemo" >添加  
-      </router-link>
+<!--       <router-link to="/addDemo" >添加  
+      </router-link> -->
+      <a href="/admin/#/addDemo">添加Demo</a>
     </div>
-    <div class="demo" v-for="demo in demos">
-      <div class="header"><h1>{{demo.title}}</h1></div>
-      <div cladss="demo_frame" v-html="demo.content"></div>
+    <div v-if="demos.length>0">    
+      <div class="demo" v-for="demo in demos">
+        <div class="header"><h1>{{demo.title}}</h1></div>
+        <div cladss="demo_frame" v-html="demo.content"></div>
+      </div>
+    </div>
+    <div v-else class="nocontent">
+      <div>
+        <img src="../../assets/nocontent.png" alt="">
+        <h1>这里还没有开垦哦！！</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -70,5 +79,19 @@ export default {
 }
 .demo_frame{
   border-radius: 30px;
+}
+.nocontent{
+  padding: 20px;
+  div{
+    img{
+      margin: 0 auto;
+    }
+    h1{
+      text-align: center;
+    }
+    padding: 50px;
+    margin: 0 auto;
+    text-align: center;
+  }
 }
 </style>

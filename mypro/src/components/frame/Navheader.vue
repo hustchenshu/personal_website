@@ -2,6 +2,8 @@
   <div class="header-out">   
     <div class="top-nav">
       <div class="left-nav">
+        <img src="../../assets/logo1.png" alt="">
+        <br>
         <nav v-for="nav in LeftNavs" class="main-nav" :class="{selected:nav.title==selected}" @click='selectType'>
           <router-link :to=nav.url class="nav-link" :title=nav.title >{{nav.title}}</router-link>
         </nav>
@@ -107,7 +109,8 @@ export default{
   }
   .title{
     position: absolute;
-    top: 50%;
+    // top: 50%;
+    bottom: 90px;
     left: 0;
     width: 100%;
 

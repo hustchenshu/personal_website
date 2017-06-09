@@ -11,13 +11,6 @@
         分&nbsp;&nbsp;&nbsp;&nbsp;类：
         <select v-model="type" lazy required>
           <option v-for="p in blogclass" :value="p._id">{{p.title}}</option>
-<!--           <option value='Javascript'>Javascript</option>
-          <option value='Css'>Css</option>
-          <option value='Html'>Html</option>
-          <option value='Vue'>Vue</option>
-          <option value='React'>React</option>
-          <option value='Node'>Node</option>
-          <option value='Others' selected>Others</option> -->
         </select>
       </div>
       <!-- <button @click="addblog">发布</button> -->
@@ -169,7 +162,7 @@
             } else {
               window.sessionStorage.clear()
               alert('您没有该权限，请先登录！')
-              window.location = '#/addBlog'
+              window.location = '/admin/#/login/addBlog'
             }
           }).catch(function (ex) {
             console.log('博客发布失败：', ex)

@@ -17,7 +17,7 @@ const app = express();
 app.set('jwtTokenSecret', 'YOUR_SECRET_STRING');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(express.static('public'));
+app.use(express.static('public'));
 
 //app.use(api);
 // è®¿é—®é™æ€èµ„æºæ–‡ä»?è¿™é‡Œæ˜¯è®¿é—®æ‰€æœ‰distç›®å½•ä¸‹çš„é™æ€èµ„æºæ–‡ä»?
@@ -33,6 +33,9 @@ app.use('/api/blog', router_blog_manage);
 const router_demo_manage = require('./routers/demo.js');
 app.use('/api/demo', router_demo_manage);
 
+const router_blogclass_manage = require('./routers/blogclass.js');
+app.use('/api/blogclass', router_blogclass_manage);
+
 
 
 
@@ -42,12 +45,12 @@ const mongoose = require('mongoose');
 global.DbHandler = require('./mongodb/dbHandler.js');
 global.db = mongoose.connect("mongodb://localhost:27017/appDB");
 // å› ä¸ºæ˜¯å•é¡µåº”ç”?æ‰€æœ‰è¯·æ±‚éƒ½èµ?dist/index.html
+
 app.get('*', function(req, res){
     res.sendFile(path.resolve(__dirname, 'public/pages/404.html'), {
         title: 'No Found'
     })
 });
-
 
 
 // ç›‘å¬8088ç«¯å£
@@ -61,6 +64,8 @@ var options = {
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(options, app);
+
+// 停止 SQL Server ReportingServices这个服务，然后 nodejs就能直接通过域名绑定  80端口了。
 
 httpServer.listen(80, function() {
     console.log('HTTP Server is running on: http://localhost:%s', 80);

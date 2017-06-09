@@ -1,14 +1,18 @@
 var express = require('express');
 var router = express.Router();
 const path = require('path');
-router.get('/', function (req, res) {
-	// console.log(path.resolve(__dirname, '../mypro/dist/index.html'))
- //    const html = fs.readFileSync(path.resolve(__dirname, '../mypro/dist/index.html'), 'utf-8');
- //    res.send(html);
-    res.sendFile(path.resolve(__dirname, '../mypro/dist/index.html'), {
-        title: 'No Found'
+// router.get('/', function (req, res) {
+//     res.sendFile(path.resolve(__dirname, '../mypro/dist/index.html'), {
+//         title: 'skdjfls'
+//     })
+// });
+
+router.get('/admin', function (req, res) {
+    res.sendFile(path.resolve(__dirname, '../public/pages/admin.html'), {
+        title: '后台管理'
     })
 });
+
 
 module.exports = router;
 

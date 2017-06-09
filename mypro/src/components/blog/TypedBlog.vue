@@ -1,14 +1,16 @@
 <template>
   <div class="container">
-    <div class="path">
-      <router-link to='/'>Home</router-link> 
-      / 
-      <router-link to='/blog/All'>Blog</router-link>
-      / 
-      <router-link :to='"/blog/"+type'>{{type}}</router-link>
+    <div v-if="items.length>0">    
+      <div v-for="item in items">
+        <Blog :date='item.date' :title='item.title' :id='item._id' along='false'></Blog>
+      </div>
     </div>
-    <div v-for="item in items">
-      <Blog :date='item.date' :title='item.title' :id='item._id' along='false'></Blog>
+
+    <div v-else class="nocontent">
+      <div>
+        <img src="../../assets/nocontent.png" alt="">
+        <h1>这里还没有开垦哦！！</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -45,17 +47,6 @@ export default{
       .then(function (response) {
         return response.json()
       }).then(function (json) {
-        // console.log('parsed json', json)
-        // let blogs = []
-        // json.forEach(function (blog) {
-        //   let item = {
-        //     date: blog.filename.split('@')[1].split('.')[0],
-        //     title: blog.filename.split('~')[1].split('@')[0],
-        //     id: blog.filename
-        //   }
-        //   blogs.push(item)
-        // })
-        // console.dir(blogs)
         self.items = json
       }).catch(function (ex) {
         console.log('parsing failed', ex)
@@ -76,6 +67,14 @@ export default{
     a{
       text-decoration: none;
     }
+  }
+}
+.nocontent{
+  padding: 20px;
+  div{
+    padding: 50px;
+    margin: 0 auto;
+    text-align: center;
   }
 }
 </style>

@@ -69,13 +69,13 @@ export default {
           alert('失败')
         } else {
           // console.log(res.text())
-          return res.text()
+          return res.json()
         }
       }).then(function (data) {
         // console.log(data)
         // var converter = new window.showdown.Converter()
         // var htm = converter.makeHtml(data)
-        self.content = data
+        self.content = data.content
         // console.log(htm)
       })
     }
@@ -85,7 +85,17 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// @import './github-markdown.css';
+.mainTitle:before{
+  content: url('../../assets/BlogTitle.png')
+}
+.mainTitle:after{
+  content: url('../../assets/openblog.png')
+}
+.time{
+  a:before{
+    content: url('../../assets/blog-time.png')
+  }
+}
 .expand-enter-active, .expand-leave-active {
   transition: all .3s
 }
@@ -97,9 +107,10 @@ export default {
   margin: 0 auto;
   padding: 10px 0px 0px 0px;
   .time{
-    width: 145px;
+    width: 175px;
+    color: gray;
     box-shadow: 2px -2px gray;
-    padding-top: 5px;
+    padding: 5px 0 0 12px;
     text-indent: 1em;
     border-radius: 15px 15px 0 0;
     height: 1.8em;
@@ -109,6 +120,7 @@ export default {
     background: rgba(255, 255, 244, 0.5);
     a{
       text-decoration: none;
+      color: gray;
     }
   }
   .content{
@@ -120,7 +132,7 @@ export default {
     padding-bottom: 45px;
     position: relative;
     .mainTitle{
-      color: rgba(25, 55, 25, 0.5);
+      color: rgba(25, 55, 25, 0.9);
       font-size: 22px;
       letter-spacing: 2px;
       text-decoration: none;

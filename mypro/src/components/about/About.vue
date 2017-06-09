@@ -62,7 +62,7 @@
             <legend>硕士</legend>
             <h2><a href='http://www.hust.edu.cn/' target="_new">华中科技大学</a></h2>
             <p><a href='http://www.hust.edu.cn/' target="_new">Huazhong University of Science and Technology</a></p>
-            <small>2011-09 ~ 2015-07</small>
+            <small>2015-09 ~ 2018-07</small>
             <p class='pro'>模式识别与智能系统</p>
           </fieldset>
         </div>

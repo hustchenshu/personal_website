@@ -7,10 +7,14 @@
         </div>
         <div class="outer">
           <div class="left">
+            <transition name="slide-fade">
             <router-view name="leftView"></router-view>
+            </transition>
           </div>
           <div class="view">
+            <transition name="slide-fade">
             <router-view></router-view>
+            </transition>
           </div>
         </div>
         <div class="footer">
@@ -64,10 +68,6 @@ export default {
           title: 'About',
           url: '/About'
         }
-        // {
-        //   title: 'Manage',
-        //   url: '/manage'
-        // }
       ]
     }
   }
@@ -75,6 +75,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+
+.slide-fade-enter-active{
+  transition: all .5s ease;
+}
+.slide-fade-leave-active{
+  transition: all .5s cubic-bezier(1.0,0.5,0.8,1.0);
+}
+.slide-fade-enter,.slide-fade-leave-active{
+  transform:translateX(-100%);
+  opacity: 0;
+}
+
+
+
 .container{
   position: relative;
   height: 100%;

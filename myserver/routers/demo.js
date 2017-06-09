@@ -60,4 +60,41 @@ router.get('/getDemos',(req,res) => {
     }
   });
 })
+
+router.get('/del', (req, res) => {
+  let token = req.get('x-access-token')
+  if (!token||token==='null') {
+    res.json({
+        success: false,
+        message: 'no token'
+    });
+  } else {
+    let m = jwtToken.checkToken(manager, token)
+    if(m){
+      var Demos = global.DbHandler.getModel('Demos'); 
+      let demoid = req.query.id
+      // console.log('id:',demoid)
+      Demos.findByIdAndRemove(demoid, function(err, doc){ 
+          if (err) {
+            res.json({
+                success: false,
+                message: err
+            });
+          } else {
+            // console.log(doc)
+            res.json({
+                success: true,
+                message: demoid
+            });
+          }
+        }
+      );    
+    }else{
+      res.json({
+          success: false,
+          message: 'token invalid'
+      });
+    }
+  }   
+})
 module.exports = router;
