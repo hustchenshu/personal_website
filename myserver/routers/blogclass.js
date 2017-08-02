@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 
 
 router.get('/getClass',(req,res) => {
-  var Blogclass = global.DbHandler.getModel('BlogClass'); 
+  var Blogclass = global.DbHandler.getModel('BlogClass');  
   Blogclass.find().sort([['date', -1]]).exec((err,doc)=>{
     if(err){
       console.log(err)

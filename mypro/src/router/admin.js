@@ -1,11 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/admin/login/Login'
-import BlogEditor from '@/components/admin/BlogEditor'
-import DemoAdd from '@/components/admin/DemoAdd'
+// import Login from '@/components/admin/login/Login'
+// import BlogEditor from '@/components/admin/BlogEditor'
+// import DemoAdd from '@/components/admin/DemoAdd'
 // import BlogAdminNav from '@/components/admin/BlogAdminNav'
-import AdminList from '@/components/admin/AdminList'
-import BlogClassAdd from '@/components/admin/BlogClassAdd'
+// import AdminList from '@/components/admin/AdminList'
+// import BlogClassAdd from '@/components/admin/BlogClassAdd'
+
+const Login = resolve => require(['@/components/admin/login/Login.vue'], resolve)
+const BlogEditor = resolve => require(['@/components/admin/BlogEditor.vue'], resolve)
+const DemoAdd = resolve => require(['@/components/admin/DemoAdd.vue'], resolve)
+const AdminList = resolve => require(['@/components/admin/AdminList.vue'], resolve)
+const BlogClassAdd = resolve => require(['@/components/admin/BlogClassAdd.vue'], resolve)
 
 Vue.use(Router)
 

@@ -1,5 +1,5 @@
 {
-  "name": "mypro",
+  "name": "hustchenshu",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "hustchenshu <569874886@qq.com>",
@@ -11,7 +11,6 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "d3": "^4.9.1",
     "dateformat": "^2.0.0",
     "github-markdown-css": "^2.6.0",
     "less": "^2.7.2",

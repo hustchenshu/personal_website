@@ -54,6 +54,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@media screen and (max-width:414px){
+  .manage{
+    display: none;
+  }
+}
 .manage{
   margin:20px 0 30px 0px;
   padding:10px;

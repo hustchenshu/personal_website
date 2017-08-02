@@ -8,7 +8,7 @@
         <div class="outer">
           <div class="left">
             <transition name="slide-fade">
-            <router-view name="leftView"></router-view>
+            <router-view name="leftView" class="leftView"></router-view>
             </transition>
           </div>
           <div class="view">
@@ -117,13 +117,14 @@ export default {
 
 }
 
+
 .outer{
   max-width: 1220px;
   margin: 0 auto;
   padding: 0 20px;
   min-height: 500px;
   background: rgba(225,225,225,0.6);
-  display: flex;
+  // display: flex;
   .left{
     // width: 200px;
     // position: fixed;
@@ -133,6 +134,7 @@ export default {
     margin-right: 10px;
     // border: dashed 1px;
     // padding: 10px;
+    float: left;
     .leftNav{
       width: 100%;
       height: 200px;
@@ -143,8 +145,12 @@ export default {
   }
   
   .view{
-    width: 100%;
-    flex:1;
+    // width: 100%;
+    // flex:1;
+
+    
+    overflow: hidden;
+    zoom: 1;
   }
 }
 
@@ -190,8 +196,11 @@ export default {
   right: 80px;
   z-index:999;
 }
-@media screen and (max-width:478px){
+@media screen and (max-width:414px){
   .toTop{
+    display: none;
+  }
+  .leftView{
     display: none;
   }
 }

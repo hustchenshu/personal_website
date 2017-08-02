@@ -10,7 +10,7 @@
         <div v-show="show">
           <div class="md markdown-body" v-html='content'>
           </div>
-          <div class="footer"></div>
+          <div class="footer"><a href="javascript:void()">shouqi</a></div>
         </div>
       </transition>
     </div>

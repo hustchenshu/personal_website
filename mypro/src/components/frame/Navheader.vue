@@ -13,11 +13,6 @@
           <router-link to="javascript:void(0)" class="nav-link">sm</router-link>
         </nav>
       </div>
-      <div class="right-nav">
-<!--         <nav>
-          <a href="javascript:void(0)" class="nav-link search-ico">search</a>
-        </nav> -->
-      </div>
     </div>
     <div class="title">
       <h1 class="main-title">{{mainTitle}}</h1>
@@ -91,14 +86,14 @@ export default{
       float: left;
       padding: 10px 20px 0 10px;
     }
-    @media screen and (max-width:478px){
-      .left-nav{
-        display: none;
-      }
-      .left-nav-sm{
-        display: inline-block;
-      }
-    }
+    // @media screen and (max-width:478px){
+    //   .left-nav{
+    //     display: none;
+    //   }
+    //   .left-nav-sm{
+    //     display: inline-block;
+    //   }
+    // }
     .right-nav{
       float: right;
       padding: 10px 20px 0 10px;
